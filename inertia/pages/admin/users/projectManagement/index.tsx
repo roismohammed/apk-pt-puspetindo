@@ -23,7 +23,6 @@ export default function Index() {
   const [verify, setVerify] = useState([]);
   const { data, setData, post, processing } = useForm({ verify: [] });
 
-  // Fungsi untuk memfilter data berdasarkan proyek, tanggal mulai, dan tanggal akhir
   const handleFilter = () => {
     const params: any = {};
 
@@ -38,10 +37,10 @@ export default function Index() {
     if (proyek) {
       params.proyek = proyek;
     }
-    router.get('/project', params); // Redirect ke URL dengan query parameter
+    router.get('/project', params); 
   };
 
-  // Fungsi untuk mengelola verifikasi (checkbox)
+
   const handleVerify = (e, row) => {
     const isChecked = e.target.checked;
     if (isChecked) {
@@ -82,8 +81,6 @@ export default function Index() {
       } 
     });
   };
-
-  // update cek perubahan pull
 
   const formatDate = (date) => {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
