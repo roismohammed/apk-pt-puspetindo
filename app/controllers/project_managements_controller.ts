@@ -26,7 +26,16 @@ export default class ProjectManagementsController {
             const manHours = await ManHour.query().whereIn('id', request.input('data')).update({
                 verifikasi: 'Diterima'
             });
-            const minhours = await ManHour.query().whereIn('id', request.input('data')).update({
+
+            return response.redirect('/manhours');
+        } catch (error) {
+            return response.internalServerError({ message: 'Terjadi kesalahan saat memverifikasi data.' });
+        }
+    }
+
+    public async reject({ params, request, response }: HttpContext) {
+        try {
+            const manHours = await ManHour.query().whereIn('id', request.input('data')).update({
                 verifikasi: 'Ditolak'
             });
 

@@ -70,9 +70,10 @@ export default function Index() {
   };
 
   const handleReject = () => {
-    router.post('/project/manhours/verify', { 
+    router.post('/project/manhours/reject', { 
       data: verify,
     }, {
+
       onSuccess: () => {
         toast.success('Data Berhasil Diupdate!');
       },

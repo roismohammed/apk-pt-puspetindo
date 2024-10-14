@@ -59,6 +59,7 @@ router.group(() => {
 router.group(() => {
     router.get('/', [ProjectManagementsController, 'index'])
     router.post('/manhours/verify', [ProjectManagementsController,'verify'])
+    router.post('/manhours/reject', [ProjectManagementsController,'reject'])
 }).prefix('/project/').use(middleware.auth())
 
 router.group(() => {
