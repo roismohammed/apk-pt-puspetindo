@@ -26,6 +26,9 @@ export default class ProjectManagementsController {
             const manHours = await ManHour.query().whereIn('id', request.input('data')).update({
                 verifikasi: 'Diterima'
             });
+            const minhours = await ManHour.query().whereIn('id', request.input('data')).update({
+                verifikasi: 'Ditolak'
+            });
 
             return response.redirect('/manhours');
         } catch (error) {

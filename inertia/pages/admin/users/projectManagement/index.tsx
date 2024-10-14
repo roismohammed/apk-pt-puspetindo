@@ -69,6 +69,21 @@ export default function Index() {
     });
   };
 
+  const handleReject = () => {
+    router.post('/project/manhours/verify', { 
+      data: verify,
+    }, {
+      onSuccess: () => {
+        toast.success('Data Berhasil Diupdate!');
+      },
+      onError: () => {
+        toast.error('Data Gagal Diupdate!');
+      } 
+    });
+  };
+
+  // update cek perubahan pull
+
   const formatDate = (date) => {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     return new Date(date).toLocaleDateString('id-ID', options);
@@ -135,7 +150,7 @@ export default function Index() {
                   <TableHead>Tanggal</TableHead>
                   <TableHead className="text-right gap-2">
                   <p
-                      onClick={handleSubmit}
+                      onClick={handleReject}
                       className="bg-red-600 inline-block mx-2 hover:bg-red-500 cursor-pointer text-white text-xs py-1.5 rounded-sm px-3"
                     >
                       Tolak
