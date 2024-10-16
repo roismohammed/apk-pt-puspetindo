@@ -8,7 +8,8 @@ import ReactToPrint from 'react-to-print';
 
 export default function Laporan() {
   const { data_tiketing, data_karyawan } = usePage().props;
-  console.log(data_karyawan);
+  const { data_user_login } = usePage().props;
+  console.log(data_user_login);
 
   const componentRef = useRef(null);
 
@@ -25,7 +26,7 @@ export default function Laporan() {
   };
 
   return (
-    <Admin>
+    <Admin user={data_user_login}>
       <Head>
         <title>Laporan Tiketing</title>
       </Head>

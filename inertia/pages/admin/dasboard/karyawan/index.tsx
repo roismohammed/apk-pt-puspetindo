@@ -9,9 +9,9 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { DownloadTableExcel } from 'react-export-table-to-excel';
 import { useRef } from 'react';
 export default function Index() {
-    const { data_karyawan } = usePage().props;
+    const { data_karyawan, data_user,data_user_login } = usePage().props;
+    console.log(data_user_login)
     const tableRef = useRef(null);
-
     const handleDelete = async (id:any) => {
         const result = await Swal.fire({
             title: 'Ingin Hapus Data?',
@@ -36,9 +36,7 @@ export default function Index() {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' }
         return new Date(date).toLocaleDateString('id-ID', options)
       }
-
     const columnHelper = createColumnHelper();
-
     const columns = [
         columnHelper.accessor('id', {
             header: 'No',
@@ -153,8 +151,8 @@ export default function Index() {
     ];
 
     return (
-        <Admin>
-            <Head title="karyawan" />
+        <Admin  user={data_user_login}>
+            <Head title="karyawans" />
             <div className='lg:w-[1120px]'>
                 <div className="border-b border-gray-200 pb-4">
                     <div className='flex justify-between '>
@@ -162,7 +160,7 @@ export default function Index() {
                             <Link href="/">
                                 <p className='text-sm flex hover:text-gray-500  gap-1 items-center'><IconHome size={18} />Home</p>
                             </Link>
-                            <h6 className='text-gray-600 text-lg font-bold '>Data Karyawan</h6>
+                            <h6 className='text-gray-600 text-lg font-bold '>Data Karyawans</h6>
                         </div>
 
                         <div className="flex gap-2">

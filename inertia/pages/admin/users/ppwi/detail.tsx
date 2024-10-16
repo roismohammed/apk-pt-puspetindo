@@ -4,24 +4,14 @@ import Admin from '~/layout/admin';
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import { Input } from '~/components/ui/input';
 import React, { useState } from 'react';
-import { Button } from '~/components/ui/button';
 import Swal from 'sweetalert2';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 
-export default function Detail({ data_ppwi }: any) {
-  console.log(data_ppwi);
 
-  const [searchQuery, setSearchQuery] = useState(''); 
+export default function Detail({ data_ppwi, data_user_login }: any) {
+console.log(data_user_login);
+
+
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filteredPpwi = data_ppwi.filter((ppwi: any) =>
     ppwi.namaFile.toLowerCase().includes(searchQuery.toLowerCase())
@@ -29,21 +19,21 @@ export default function Detail({ data_ppwi }: any) {
 
   const handleDelete = async (namaFile: any) => {
     const swalInstance = Swal.fire({
-        title: 'Ingin Hapus Data?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Ya!',
-        cancelButtonText: 'Tidak!',
-        allowOutsideClick: false,
+      title: 'Ingin Hapus Data?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Ya!',
+      cancelButtonText: 'Tidak!',
+      allowOutsideClick: false,
     });
     const result = await swalInstance;
     if (result.isConfirmed) {
-        await router.delete('/ppwi/delete/' + namaFile);
-        Swal.fire('Deleted!', 'Data berhasil dihapus.', 'success');
+      await router.delete('/ppwi/delete/' + namaFile);
+      Swal.fire('Deleted!', 'Data berhasil dihapus.', 'success');
     } else {
-        Swal.fire('Cancelled', 'Data tidak dihapus.', 'error');
+      Swal.fire('Cancelled', 'Data tidak dihapus.', 'error');
     }
-};
+  };
 
 
 
@@ -107,11 +97,13 @@ export default function Detail({ data_ppwi }: any) {
                       className="text-blue-600 hover:bg-gray-100 duration-300 border rounded-sm w-8 border-slate-200 hover:text-blue-800 cursor-pointer"
                     />
                   </a>
-                  <IconTrash
-                    size={24}
-                    className="text-red-600 hover:bg-gray-100 duration-300 border rounded-sm w-8 border-slate-200 hover:text-red-800 cursor-pointer"
-                    onClick={() => handleDelete(data.namaFile)}
-                  />
+                  {data_user_login?.jabatan === 'IT Software' ? (
+                    <IconTrash
+                      size={24}
+                      className="text-red-600 hover:bg-gray-100 duration-300 border rounded-sm w-8 border-slate-200 hover:text-red-800 cursor-pointer"
+                      onClick={() => handleDelete(data.namaFile)}
+                    />
+                  ) : null}
                 </div>
               </div>
             </Card>

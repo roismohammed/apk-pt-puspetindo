@@ -6,12 +6,14 @@ import favIcon from '../img/logo-kecil.png'
 import toast, { Toaster } from 'react-hot-toast';
 import { Card } from '~/components/ui/card'
 
-export default function Admin({ children }) {
+export default function Admin({ user, children: children }: any) {
   const [isSidebarHidden, setSidebarHidden] = useState(false);
   const toggleSidebar = () => {
     setSidebarHidden(!isSidebarHidden);
   };
 
+  console.log(user);
+  
   return (
     <Fragment>
       <Head>
@@ -21,15 +23,15 @@ export default function Admin({ children }) {
       <div className={`grid min-h-screen  ${isSidebarHidden ? 'grid-cols-[64px_1fr]' : 'md:grid-cols-[220px_1fr]'} lg:grid-cols-[230px_1fr]`}>
         <div className="hidden text-slate-800 md:block">
           <div className="flex z-10 md:max-w-[220px] lg:max-w-[260px] w-[227px] fixed h-full max-h-screen flex-col gap-2">
-            <Sidebar isSidebarHidden={isSidebarHidden} toggleSidebar={toggleSidebar} />
+            <Sidebar user={user} isSidebarHidden={isSidebarHidden} toggleSidebar={toggleSidebar} />
           </div>
         </div>
         <div className="flex flex-col">
           <Navbar isSidebarHidden={isSidebarHidden} />
           <main className={`flex flex-1 bg-gray-200 overflow-x-hidden flex-col gap-4 p-4  lg:gap-6 lg:p-4 w-full transition-all duration-300 ${isSidebarHidden ? 'pl-8' : 'pl-64 lg:pl-22'}`}>
-    <Card className="p-5">
-    {children}
-    </Card>
+            <Card className="p-5">
+              {children}
+            </Card>
           </main>
         </div>
       </div>

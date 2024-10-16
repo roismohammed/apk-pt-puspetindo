@@ -17,7 +17,7 @@ export default class KaryawansKontroller {
         const semuaUser = await User.all();
         return inertia.render('admin/dasboard/karyawan/index', {
             data_karyawan: semuaKaryawan,
-            data_user: semuaUser,
+            data_user: karyawanUser,
         });
     }
 

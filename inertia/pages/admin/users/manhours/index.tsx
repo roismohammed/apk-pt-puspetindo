@@ -11,7 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~
 
 export default function Index() {
   const { data_manHours,user ,data_karyawan} = usePage().props;
-  console.log(data_karyawan);
 
   const columnHelper = createColumnHelper<any>();
 
@@ -118,7 +117,7 @@ export default function Index() {
   
 
   return (
-    <Admin>
+    <Admin user={data_karyawan}>
       <Head title="Man Hours" />
       <div>
         <div className="border-b border-gray-200 pb-4">

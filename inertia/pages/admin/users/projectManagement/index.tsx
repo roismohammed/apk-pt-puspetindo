@@ -16,7 +16,7 @@ import { Button } from '~/components/ui/button';
 import { toast } from 'sonner';
 
 export default function Index() {
-  const { data_manhours, data_all_manhours } = usePage().props;
+  const { data_manhours, data_all_manhours,data_karyawan } = usePage().props;
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [proyek, setProyek] = useState('');
@@ -88,7 +88,7 @@ export default function Index() {
   };
 
   return (
-    <Admin>
+    <Admin user={data_karyawan}>
       <Head>
         <title>Project Management</title>
       </Head>

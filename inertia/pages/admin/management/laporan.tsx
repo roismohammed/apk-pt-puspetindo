@@ -81,7 +81,7 @@ export default function Laporan() {
   };
 
   return (
-    <Admin>
+    <Admin  user={data_karyawan}>
       <Head title='Laporan' />
       <div ref={componentRef}>
         <>

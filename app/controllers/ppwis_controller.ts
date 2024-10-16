@@ -1,4 +1,5 @@
 import JudulPpwi from '#models/judul_ppwi'
+import Karyawan from '#models/karyawan'
 import Ppwi from '#models/ppwi'
 import type { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
@@ -6,7 +7,7 @@ import app from '@adonisjs/core/services/app'
 export default class PpwisController {
 
 
-    async index({ inertia }: HttpContext) {
+    async index({ inertia,auth }: HttpContext) {
         const judul = await JudulPpwi.all()
         const ppwi = await Ppwi.query().preload('judulPpwi')
         const uniquePpwi = Object.values(
@@ -18,14 +19,18 @@ export default class PpwisController {
                 return acc;
             }, {})
         );
+
+        const user = auth.user;
+        const karyawan = await Karyawan.query().where('user_id', user.id).distinct('jabatan','nama').first();
         return inertia.render('admin/users/ppwi/index', {
             data_judul: judul,
             data_ppwi: uniquePpwi,
+            data_user_login:karyawan
         })
     }
 
 
-    async detail({ params, inertia }: HttpContext) {
+    async detail({ params, inertia,auth }: HttpContext) {
         try {
             const ppwi = await Ppwi.query()
                 .where('id', params.id)
@@ -38,8 +43,11 @@ export default class PpwisController {
                 .where('judulId', ppwi.judulId) 
                 .preload('judulPpwi');
 
+                const user = auth.user;
+                const karyawan = await Karyawan.query().where('user_id', user.id).distinct('jabatan','nama').first();
             return inertia.render('admin/users/ppwi/detail', {
                 data_ppwi: relatedPpwi,
+                data_user_login:karyawan
             });
 
         } catch (error) {

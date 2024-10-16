@@ -11,7 +11,8 @@ import { createColumnHelper } from '@tanstack/react-table'
 import DataTable from '~/components/dataTable/dataTable'
 import { useState } from 'react'
 export default function Index() {
-  const { data_ppwi } = usePage().props
+  const { data_ppwi,data_karyawan,data_user_login } = usePage().props
+  
   const [open,setOpen] = useState(false)
 
   const columnHelper = createColumnHelper<Ppwi>();
@@ -52,7 +53,7 @@ export default function Index() {
   ];
 
   return (
-    <Admin>
+    <Admin  user={data_karyawan}>
       <Head>
         <title>PPWI</title>
       </Head>
@@ -66,7 +67,8 @@ export default function Index() {
               <h6 className='text-gray-600 text-lg font-bold'>Halaman PPWI</h6>
             </div>
 
-            <div className='flex gap-1'>
+            {data_user_login?.jabatan === 'IT Software' ? (
+              <div className='flex gap-1'>
               <Link href='/judul'>
                 <Button className="bg-blue-600 hover:bg-blue-500 text-white btn-small gap-2 hover:text-white">Data Judul</Button>
               </Link>
@@ -88,6 +90,7 @@ export default function Index() {
                 </DialogContent>
               </Dialog>
             </div>
+            ): null}
           </div>
 
 

@@ -6,8 +6,7 @@ import Create from './create'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 
 export default function Index() {
-  const { data_tiketing } = usePage().props
-  console.log(data_tiketing)
+  const { data_tiketing,data_karyawan } = usePage().props
 
   const problems = [
     'Jaringan Wi-Fi lambat, mungkin ada kendala di router.',
@@ -41,7 +40,7 @@ export default function Index() {
   
 
   return (
-    <Admin>
+    <Admin  user={data_karyawan}>
       <Head>
         <title>tiketing</title>
       </Head>
