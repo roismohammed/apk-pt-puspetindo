@@ -6,7 +6,6 @@ export default class HomeController {
         const user = auth.user;
         const karyawan = await Karyawan.query().where('user_id', user.id).first();
         return inertia.render('home', {
-            data_user: user,
             data_karyawan:karyawan
         })
     }

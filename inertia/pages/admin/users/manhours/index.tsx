@@ -59,7 +59,7 @@ export default function Index() {
       cell: (info) => info.row.original?.karyawan?.nama || 'data tidak ada',
     }),
   
-    columnHelper.accessor('departemen.namaDepartemen', {
+    columnHelper.accessor('karyawan.departemen.namaDepartemen', {
       header: 'Departemen',
       cell: (info) => info.row.original?.departemen?.namaDepartemen || '-',
       footer: (info) => info.column.id,

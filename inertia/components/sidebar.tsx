@@ -16,17 +16,13 @@ import {
 } from '@tabler/icons-react';
 import MyImageComponent from '../img/logo-puspetindo.png';
 import { Button } from "@/components/ui/button";
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion"
+export default function Sidebar({ isSidebarHidden, toggleSidebar }: any) {
 
-export default function Sidebar({ isSidebarHidden, toggleSidebar }) {
-
-    const { url } = usePage();
+    const { url, props } = usePage();
     const isActive = (path) => url === path;
+
+    const { data_karyawan } = props;
+
 
     return (
         <Fragment>
@@ -66,19 +62,21 @@ export default function Sidebar({ isSidebarHidden, toggleSidebar }) {
                                     )}
                                 </Link>
 
-                                <Link
-                                    href='/karyawan'
-                                    className={`flex pl-2 text-black rounded-sm p-1 gap-2 text-md transition-all duration-200 ${isActive('/karyawan') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
-                                >
-                                    <IconUsers size={21} />
-                                    {isSidebarHidden ? (
-                                        <span className="hidden group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
-                                            Karyawan
-                                        </span>
-                                    ) : (
-                                        <span>Karyawan</span>
-                                    )}
-                                </Link>
+                                {data_karyawan?.jabatan === 'IT Software' && (
+                                    <Link
+                                        href='/karyawan'
+                                        className={`flex pl-2 text-black rounded-sm p-1 gap-2 text-md transition-all duration-200 ${isActive('/karyawan') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
+                                    >
+                                        <IconUsers size={21} />
+                                        {isSidebarHidden ? (
+                                            <span className="hidden group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
+                                                Karyawan
+                                            </span>
+                                        ) : (
+                                            <span>Karyawan</span>
+                                        )}
+                                    </Link>
+                                )}
 
                                 <Link
                                     href='/tiketing'
@@ -93,34 +91,38 @@ export default function Sidebar({ isSidebarHidden, toggleSidebar }) {
                                         <span>Tiketing</span>
                                     )}
                                 </Link>
+                                {data_karyawan?.jabatan === 'IT Software' && (
 
-                                <Link
-                                    href='/tiketing/laporan'
-                                className={`flex pl-2 text-black rounded-sm p-1 gap-2 text-md transition-all duration-200 ${isActive('/tiketing/laporan') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
-                                >
-                                    <IconBook2 size={21} />
-                                    {isSidebarHidden ? (
-                                        <span className="hidden group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
-                                            Laporan Tiketing
-                                        </span>
-                                    ) : (
-                                        <span>Laporan Tiketing</span>
-                                    )}
-                                </Link>
+                                    <Link
+                                        href='/tiketing/laporan'
+                                        className={`flex pl-2 text-black rounded-sm p-1 gap-2 text-md transition-all duration-200 ${isActive('/tiketing/laporan') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
+                                    >
+                                        <IconBook2 size={21} />
+                                        {isSidebarHidden ? (
+                                            <span className="hidden group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
+                                                Laporan Tiketing
+                                            </span>
+                                        ) : (
+                                            <span>Laporan Tiketing</span>
+                                        )}
+                                    </Link>
+                                )}
 
-                                <Link
-                                    href='/proyek'
-                                    className={`flex pl-2 text-black rounded-sm p-1 gap-2 text-md transition-all duration-200 ${isActive('/proyek') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
-                                >
-                                    <IconBriefcase size={21} />
-                                    {isSidebarHidden ? (
-                                        <span className="hidden group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
-                                            Proyek
-                                        </span>
-                                    ) : (
-                                        <span>Proyek</span>
-                                    )}
-                                </Link>
+                                {data_karyawan?.jabatan === 'IT Software' && (
+                                    <Link
+                                        href='/proyek'
+                                        className={`flex pl-2 text-black rounded-sm p-1 gap-2 text-md transition-all duration-200 ${isActive('/proyek') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
+                                    >
+                                        <IconBriefcase size={21} />
+                                        {isSidebarHidden ? (
+                                            <span className="hidden group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
+                                                Proyek
+                                            </span>
+                                        ) : (
+                                            <span>Proyek</span>
+                                        )}
+                                    </Link>
+                                )}
                             </span>
 
                             <span className="flex text-xm flex-col items-start gap-1 rounded-lg text-muted-foreground transition-all">
@@ -153,19 +155,21 @@ export default function Sidebar({ isSidebarHidden, toggleSidebar }) {
                                     )}
                                 </Link>
 
-                                <Link
-                                    href='/project'
-                                    className={`flex pl-2 text-black rounded-sm p-1 gap-2 text-md transition-all duration-200 ${isActive('/project') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
-                                >
-                                    <IconManualGearbox size={21} />
-                                    {isSidebarHidden ? (
-                                        <span className="hidden  group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
-                                            Project Management
-                                        </span>
-                                    ) : (
-                                        <span>Project Management</span>
-                                    )}
-                                </Link>
+                                {data_karyawan?.jabatan === 'IT Software' && (
+                                    <Link
+                                        href='/project'
+                                        className={`flex pl-2 text-black rounded-sm p-1 gap-2 text-md transition-all duration-200 ${isActive('/project') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
+                                    >
+                                        <IconManualGearbox size={21} />
+                                        {isSidebarHidden ? (
+                                            <span className="hidden  group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
+                                                Project Management
+                                            </span>
+                                        ) : (
+                                            <span>Project Management</span>
+                                        )}
+                                    </Link>
+                                )}
 
 
 
@@ -202,36 +206,24 @@ export default function Sidebar({ isSidebarHidden, toggleSidebar }) {
                                 </Link>
                             </span>
 
-                            <span className="flex text-xm flex-col items-start gap-1 mt-3 rounded-lg  text-muted-foreground transition-all">
-                                <span className={`${isSidebarHidden ? 'hidden' : 'judul-sidebar'}`}>Sistem</span>
-                                <Link
-                                    href='/pengguna'
-                                    className={`flex pl-2 text-black rounded-sm mt-1 p-1 gap-2 text-md transition-all duration-200 ${isActive('/pengguna') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
-                                >
-                                    <IconUserSquare size={21} />
-                                    {isSidebarHidden ? (
-                                        <span className="hidden group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
-                                            Pengguna
-                                        </span>
-                                    ) : (
-                                        <span>Pengguna</span>
-                                    )}
-                                </Link>
-
-                                {/* <Link
-                                    href='#'
-                                    className={`flex pl-2 text-black rounded-sm p-1 gap-2 text-md transition-all duration-200 ${isActive('#') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
-                                >
-                                    <IconSettings size={21} />
-                                    {isSidebarHidden ? (
-                                        <span className="hidden  group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
-                                            Settings
-                                        </span>
-                                    ) : (
-                                        <span>Settings</span>
-                                    )}
-                                </Link> */}
-                            </span>
+                            {data_karyawan?.jabatan === 'IT Software' && (
+                                <span className="flex text-xm flex-col items-start gap-1 mt-3 rounded-lg  text-muted-foreground transition-all">
+                                    <span className={`${isSidebarHidden ? 'hidden' : 'judul-sidebar'}`}>Sistem</span>
+                                    <Link
+                                        href='/pengguna'
+                                        className={`flex pl-2 text-black rounded-sm mt-1 p-1 gap-2 text-md transition-all duration-200 ${isActive('/pengguna') ? 'bg-blue-600 text-white' : 'hover:text-white hover:bg-blue-600'} ${isSidebarHidden ? 'w-18 justify-center p-2 relative group' : 'w-[190px]'}`}
+                                    >
+                                        <IconUserSquare size={21} />
+                                        {isSidebarHidden ? (
+                                            <span className="hidden group-hover:block absolute left-12 bg-gray-700 text-white px-2 py-1 rounded">
+                                                Pengguna
+                                            </span>
+                                        ) : (
+                                            <span>Pengguna</span>
+                                        )}
+                                    </Link>
+                                </span>
+                            )}
                         </nav>
                     </div>
                 </div>

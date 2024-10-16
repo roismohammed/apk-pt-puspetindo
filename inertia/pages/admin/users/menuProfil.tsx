@@ -7,8 +7,8 @@ import { IconEdit } from '@tabler/icons-react'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 
 export default function MenuProfil() {
-  const { data_karyawan } = usePage().props;
-  console.log(data_karyawan);
+  // const { data_karyawan } = usePage().props;
+  // console.log(data_karyawan);
 
   return (
     <Admin>
