@@ -100,7 +100,7 @@ const nama_bank = [
 ]
 
 export default function Create({flash}) {
-    const { data_departemen, data_karyawan ,nik } = usePage().props
+    const { data_departemen, data_karyawan ,nik,data_user_login } = usePage().props
     const { data, setData, post, processing } = useForm({
         nama: '',
         nik: '',
@@ -252,7 +252,7 @@ export default function Create({flash}) {
 
   
     return (
-        <Admin>
+        <Admin user={data_user_login}>
             <Head title='add-karyawan' />
 
             <div>

@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~
 import Admin from '~/layout/admin';
 
 export default function EditPengguna() {
-    const { data_karyawan,data_departemen } = usePage().props;
+    const { data_karyawan,data_departemen, data_user_login } = usePage().props;
     console.log(data_karyawan);
 
 
@@ -116,7 +116,7 @@ export default function EditPengguna() {
     ]
 
     return (
-        <Admin>
+        <Admin user={data_user_login}>
             <Head title="Edit Pengguna" />
             <div>
                 <div className="border-b border-gray-200 pb-4">

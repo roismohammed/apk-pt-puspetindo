@@ -152,7 +152,8 @@ export default class LaporansController {
         return inertia.render('admin/management/laporan', {
             data_manhours: man_hours,
             data_karyawan:departemen,
-            data_proyek:proyek
+            data_proyek:proyek,
+            data_user_login:karyawan
         });
     }
 }

@@ -53,7 +53,7 @@ export default function Index() {
   ];
 
   return (
-    <Admin  user={data_karyawan}>
+    <Admin  user={data_user_login}>
       <Head>
         <title>PPWI</title>
       </Head>

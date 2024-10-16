@@ -16,6 +16,7 @@ export default class ProyeksController {
         const editProyek = await Proyek.first();
         return inertia.render('admin/dasboard/proyek/index', {
             data_proyek: proyek,
+            data_user_login: karyawan
         });
     }
 

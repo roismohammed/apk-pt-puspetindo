@@ -38,7 +38,7 @@ console.log(data_user_login);
 
 
   return (
-    <Admin>
+    <Admin user={data_user_login}>
       <Head>
         <title>Detail</title>
       </Head>

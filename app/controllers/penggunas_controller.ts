@@ -13,7 +13,8 @@ export default class PenggunasController {
         const semuaUser = await User.all()
         return inertia.render('admin/sistem/pengguna/index', {
             data_karyawan: semuaKaryawan,
-            data_user: semuaUser
+            data_user: semuaUser,
+            data_user_login:karyawan
         })
     }
 }

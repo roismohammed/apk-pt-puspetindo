@@ -2,10 +2,13 @@ import type { HttpContext } from '@adonisjs/core/http'
 import Departemen from '#models/departemen'
 import Karyawan from '#models/karyawan'
 export default class DepartemenController {
-    async index({ inertia }: HttpContext) {
+    async index({ inertia ,auth}: HttpContext) {
+        const user = auth.user;
         const departemen = await Departemen.all()
+        const karawan = await Karyawan.query().where('user_id', user.id).distinct('jabatan','nama').first();
         return inertia.render('admin/dasboard/departemen/index', {
-            data_departemen: departemen
+            data_departemen: departemen,
+            data_user_login:karawan
         })
     }
 

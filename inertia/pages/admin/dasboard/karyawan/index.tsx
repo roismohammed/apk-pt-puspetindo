@@ -10,7 +10,7 @@ import { DownloadTableExcel } from 'react-export-table-to-excel';
 import { useRef } from 'react';
 export default function Index() {
     const { data_karyawan, data_user,data_user_login } = usePage().props;
-    console.log(data_user_login)
+    console.log(data_user)
     const tableRef = useRef(null);
     const handleDelete = async (id:any) => {
         const result = await Swal.fire({
@@ -36,7 +36,9 @@ export default function Index() {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' }
         return new Date(date).toLocaleDateString('id-ID', options)
       }
+
     const columnHelper = createColumnHelper();
+
     const columns = [
         columnHelper.accessor('id', {
             header: 'No',

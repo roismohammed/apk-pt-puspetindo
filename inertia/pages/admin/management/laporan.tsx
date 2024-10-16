@@ -20,7 +20,7 @@ import { DownloadTableExcel } from 'react-export-table-to-excel';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 
 export default function Laporan() {
-  const { data_manhours, data_karyawan, data_proyek } = usePage().props;
+  const { data_manhours, data_karyawan, data_proyek,data_user_login } = usePage().props;
   console.log(data_proyek);
 
   const componentRef = useRef(null);
@@ -81,7 +81,7 @@ export default function Laporan() {
   };
 
   return (
-    <Admin  user={data_karyawan}>
+    <Admin  user={data_user_login}>
       <Head title='Laporan' />
       <div ref={componentRef}>
         <>

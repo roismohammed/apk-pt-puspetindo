@@ -10,7 +10,7 @@ import DataTable from '~/components/dataTable/dataTable'
 import { createColumnHelper } from "@tanstack/react-table"
 
 export default function Index() {
-    const {data_karyawan } = usePage().props
+    const {data_karyawan ,data_user_login} = usePage().props
     console.log(data_karyawan);
     
     const columnHelper = createColumnHelper<Karyawan>();
@@ -86,7 +86,7 @@ export default function Index() {
     ];
 
     return (
-        <Admin>
+        <Admin user={data_user_login}>
             <Head title="pengguna" />
             <div>
                 <div className="border-b border-gray-200 pb-4">

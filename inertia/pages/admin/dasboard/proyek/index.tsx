@@ -14,7 +14,7 @@ import Create from './create'
 import Edit from './edit'
 
 export default function IndexProyek({}) {
-    const { data_proyek } = usePage<{ data_proyek: Proyek[] }>().props
+    const { data_proyek,data_user_login } = usePage<{ data_proyek: Proyek[] }>().props
     const tableRef = useRef(null);
     const [modalEdit, setModalEdit] = useState(false); // State untuk modal edit
     const [selectedProyek, setSelectedProyek] = useState(null); // State untuk proyek yang dipilih
@@ -93,7 +93,7 @@ export default function IndexProyek({}) {
     ];
 
     return (
-        <Admin>
+        <Admin user={data_user_login}>
             <Head title="proyek" />
             <div>
                 <div className="border-b border-gray-200 pb-4">

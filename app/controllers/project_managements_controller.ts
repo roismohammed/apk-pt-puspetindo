@@ -18,6 +18,7 @@ export default class ProjectManagementsController {
         const all_man_hours = await ManHour.query().preload('karyawan').preload('proyek')
         return inertia.render('admin/users/projectManagement/index', {
             data_all_manhours: all_man_hours,
+            data_user_login: karyawan
         });
     }
 

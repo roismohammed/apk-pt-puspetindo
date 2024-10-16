@@ -7,8 +7,7 @@ import Admin from '~/layout/admin';
 import ReactToPrint from 'react-to-print';
 
 export default function Laporan() {
-  const { data_tiketing, data_karyawan } = usePage().props;
-  const { data_user_login } = usePage().props;
+  const { data_tiketing, data_user_login } = usePage().props;
   console.log(data_user_login);
 
   const componentRef = useRef(null);
@@ -37,7 +36,7 @@ export default function Laporan() {
             {sortedData.map((data) => (
               <Card key={data.id} className="rounded-sm relative">
                 <CardContent className="mt-6">
-                  {data_karyawan.map((karyawan) => (
+                  {data_user_login.map((karyawan) => (
                     <div key={karyawan.id}>
                       <p className="font-semibold text-xl text-center mb-4"> {karyawan.nama}</p>
                     </div>

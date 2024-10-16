@@ -17,21 +17,25 @@ export default class KaryawansKontroller {
         const semuaUser = await User.all();
         return inertia.render('admin/dasboard/karyawan/index', {
             data_karyawan: semuaKaryawan,
-            data_user: karyawanUser,
+            data_user_login: karyawanUser,
         });
     }
 
-    async create({ inertia }: HttpContext) {
-        const departemen = await Departeman.all()   ;   
+    async create({ inertia,auth }: HttpContext) {
+        const departemen = await Departeman.all();
         const karyawan = await Karyawan.all();
+
+        const user = auth.user;
+        const karyawanUser = await Karyawan.query().where('user_id', user.id).first();
         return inertia.render('admin/dasboard/karyawan/create', {
             data_departemen: departemen,
-            data_karyawan: karyawan
+            data_karyawan: karyawan,
+            data_user_login: karyawanUser
         });
     }
 
 
-    async store({ request, response, session,inertia }: HttpContext) {
+    async store({ request, response, session, inertia }: HttpContext) {
         const users = new User()
         users.fullName = request.input('fullName');
         users.email = request.input('email');
@@ -42,7 +46,7 @@ export default class KaryawansKontroller {
 
         const nik = request.input('nik');
         const existingKaryawan = await Karyawan.query().where('nik', nik).first();
-    
+
         if (existingKaryawan) {
             session.flash({ error: 'NIK sudah terdaftar!' });
             return inertia.render('/karyawan/create');
@@ -77,16 +81,19 @@ export default class KaryawansKontroller {
         return response.redirect('/karyawan')
     }
 
-    async edit({ inertia, params }: HttpContext) {
+    async edit({ inertia, params,auth }: HttpContext) {
+        const user = auth.user;
+        const karyawanUser = await Karyawan.query().where('user_id', user.id).first();
         const karyawan = await Karyawan.query()
             .preload('user')
             .preload('departemen')
             .where('id', params.id)
             .first();
-            const departemen = await Departeman.all()
+        const departemen = await Departeman.all()
         return inertia.render('admin/dasboard/karyawan/edit', {
             data_karyawan: karyawan,
-            data_departemen:departemen
+            data_departemen: departemen,
+            data_user_login: karyawanUser
         });
     }
 
@@ -109,7 +116,7 @@ export default class KaryawansKontroller {
         karyawan.nama_bank = request.input('namaBank');
         karyawan.status = request.input('status')
 
-         karyawan.save();
+        karyawan.save();
         return response.redirect('/karyawan')
     }
 

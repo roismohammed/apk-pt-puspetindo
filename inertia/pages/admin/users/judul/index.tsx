@@ -12,7 +12,7 @@ import DataTable from '~/components/dataTable/dataTable'
 import { createColumnHelper } from '@tanstack/react-table'
 import Ppwi from '#models/ppwi'
 export default function Indexjudul() {
-    const { data_judul } = usePage().props;
+    const { data_judul ,data_user_login} = usePage().props;
     console.log(data_judul);
 
     const [open, setOpen] = useState(false);
@@ -63,7 +63,7 @@ export default function Indexjudul() {
         }),
     ];
     return (
-        <Admin>
+        <Admin user={data_user_login}>
             <Head>
                 <title>judul</title>
             </Head>

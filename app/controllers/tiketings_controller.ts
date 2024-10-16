@@ -4,15 +4,18 @@ import Tiketing from '#models/tiketing';
 import { DateTime } from 'luxon';
 
 export default class TiketingsController {
-    async index({ inertia }: HttpContext) {
+    async index({ inertia,auth }: HttpContext) {
+        const user = auth.user;
+        const karyawan = await Karyawan.query().where('user_id', user.id).distinct('jabatan','nama').first();
         const tiketing = await Tiketing.all()
         return inertia.render('admin/dasboard/tiketing/index',{
-            data_tiketing:tiketing
+            data_tiketing:tiketing,
+            data_user_login:karyawan
         })
     }
 
     async laporan({ inertia, response, auth }: HttpContext) {
-        const user = await auth.user;
+        const user = auth.user;
         if (!user) {
             return response.redirect('/login');
         }
@@ -23,7 +26,7 @@ export default class TiketingsController {
         const tiketing = await Tiketing.query();
         return inertia.render('admin/dasboard/tiketing/laporan', {
             data_tiketing: tiketing,
-            data_karyawan: [karyawan]
+            data_user_login: karyawan
         });
     }
     

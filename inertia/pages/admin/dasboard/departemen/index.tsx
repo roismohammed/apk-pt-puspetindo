@@ -12,7 +12,7 @@ import Edit from './edit';
 import Departemen from '#models/departemen';
 
 export default function Index({}) {
-    const { data_departemen } = usePage().props;
+    const { data_departemen,data_user_login } = usePage().props;
     const [open, setOpen] = useState(false);
     const [selectedDepartemen, setSelectedDepartemen] = useState(null); // State untuk departemen yang dipilih
 
@@ -42,7 +42,7 @@ export default function Index({}) {
     };
 
     return (
-        <Admin>
+        <Admin user={data_user_login}>
             <Head>
                 <title>departemen</title>
             </Head>
