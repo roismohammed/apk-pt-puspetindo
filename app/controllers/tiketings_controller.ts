@@ -26,7 +26,7 @@ export default class TiketingsController {
         const tiketing = await Tiketing.query();
         return inertia.render('admin/dasboard/tiketing/laporan', {
             data_tiketing: tiketing,
-            data_user_login: karyawan
+            data_user_login: [karyawan]
         });
     }
     
