@@ -1,4 +1,3 @@
-import Departeman from '#models/departemen';
 import Karyawan from '#models/karyawan';
 import ManHour from '#models/man_hour';
 import Proyek from '#models/proyek';

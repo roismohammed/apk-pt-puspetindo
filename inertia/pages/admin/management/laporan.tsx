@@ -33,11 +33,6 @@ export default function Laporan() {
   const [kodeJobOrder, setKodeJobOrder] = useState('');
   const karyawanList = Array.isArray(data_karyawan) ? data_karyawan : [];
 
-  //   const formattedDate = new Date(rawDate).toLocaleDateString('id-ID', {
-  //     year: 'numeric',
-  //     month: 'long',
-  //     day: 'numeric',
-  // });
 
   const handleFilter = (e) => {
     e.preventDefault();

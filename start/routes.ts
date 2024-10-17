@@ -9,6 +9,7 @@ const AuthController = () => import('#controllers/auth_controller')
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import MenuProfilsController from '#controllers/menu_profils_controller'
+import LaporankodeproyeksController from '#controllers/laporankodeproyeks_controller'
 const ProjectManagementsController =() =>  import ('#controllers/project_managements_controller')
 const TiketingsController =() => import ('#controllers/tiketings_controller')
 const PpwisController = () => import ('#controllers/ppwis_controller')
@@ -53,7 +54,7 @@ router.group(() => {
     router.get('create',[ManHoursController,'create'])
     router.post('create', [ManHoursController, 'store'])
     router.delete('delete/:id', [ManHoursController, 'delete'])
-    router.get('edit/:id', [ManHoursController, 'edit'])
+    // router.get('edit/:id', [ManHoursController, 'edit'])
 }).prefix('/manhours/').use(middleware.auth())
 
 router.group(() => {
@@ -86,6 +87,7 @@ router.post('logout', async ({ auth, response }) => {
 }).use(middleware.auth())
 
 router.get('/management/laporan', [LaporansController, 'laporan']).use(middleware.auth())
+router.get('/management/laporankodeproyek', [LaporankodeproyeksController, 'index']).use(middleware.auth())
 
 router.group(() => {
     router.get('/', [PenggunasController, 'index'])
