@@ -9,7 +9,7 @@ export default class ManHoursController {
         if (!user) {
             return inertia.render('admin/error/404')
         }
-        const all_karyawan = await Karyawan.all()
+
         const karyawan = await Karyawan.query().preload('departemen').preload('user').where('user_id', user.id).first();
         if (!karyawan) {
             return inertia.render('admin/users/manhours/index', {
@@ -29,6 +29,7 @@ export default class ManHoursController {
                 data_manhours: manHours,
             });
         } else {
+            const all_karyawan = await Karyawan.query().preload('departemen').distinct('departemen_id')
             const allManHours = await ManHour.query()
                 .preload('karyawan', (Karyawan) => {
                     Karyawan.preload('departemen');
@@ -37,6 +38,7 @@ export default class ManHoursController {
             return inertia.render('admin/users/manhours/index', {
                 data_karyawan: karyawan,
                 data_manhours: allManHours,
+
             });
         }
 

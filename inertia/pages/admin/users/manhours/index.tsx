@@ -190,7 +190,7 @@ export default function Index() {
                 </SelectTrigger>
                 <SelectContent>
                   {data_manhours.map((item) => (
-                    <SelectItem key={item.id} value={item.departemen?.id}>
+                    <SelectItem key={item.id} value={item.id}>
                       {item.karyawan.departemen?.namaDepartemen}
                     </SelectItem>
                   ))}
