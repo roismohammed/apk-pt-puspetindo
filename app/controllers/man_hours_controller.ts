@@ -9,69 +9,6 @@ export default class ManHoursController {
         if (!user) {
             return inertia.render('admin/error/404')
         }
-
-        if (request.input('start_date') != null) {
-            man_hours = await ManHour.query()
-                .whereBetween('tanggal',
-                    [request.input('start_date'),
-                    request.input('end_date')])
-                .preload('karyawan', (Karyawan) => {
-                    Karyawan.preload('departemen');
-                })
-                .preload('proyek').where('kodeJobOrder', request.input('proyek') || '')
-                .if(request.input('departemen') !== null, (query) => {
-                    query.whereHas('karyawan', (karyawanQuery) => {
-                        karyawanQuery.where('departemen_id', request.input('departemen') || '');
-                    });
-                })
-                .groupBy('karyawan_id')
-
-
-            const all_man_hours = await ManHour.query()
-                .whereBetween('tanggal', [request.input('start_date'), request.input('end_date')])
-                .preload('karyawan', (Karyawan) => {
-                    Karyawan.preload('departemen');
-                })
-                .preload('proyek')
-                .where('kodeJobOrder', request.input('proyek') || '')
-            let reports = [];
-
-            man_hours.forEach(karyawan => {
-                let laporan = all_man_hours.filter(item => item.karyawan_id === karyawan.karyawan_id).map(item => {
-                    return {
-                        proyek: item.proyek.namaProyek,
-                        tanggal: item.tanggal,
-                        departemen: item.karyawan.departemen.namaDepartemen,
-                        kodeJobOrder: item.proyek.kodeJobOrder,
-                        jam_kerja: item.jam_kerja,
-                        jam_lembur: item.jam_lembur,
-                        karyawan: item.karyawan,
-                        total_persentase: (item.jam_kerja / 173) * 100
-                    };
-                });
-
-                let total_jam = laporan.reduce((acc, item) => {
-                    return acc + item.jam_kerja
-                }, 0);
-
-
-                reports.push({
-                    id: karyawan.id,
-                    nama_karyawan: karyawan.karyawan.nama,
-                    departemen: karyawan.karyawan.departemen.namaDepartemen,
-                    tanggal: karyawan.tanggal,
-                    data_laporan: laporan,
-                    total_jam: total_jam,
-                    total_persentase: (total_jam / 173) * 100
-                });
-            });
-
-            man_hours = reports;
-
-
-        }
-
-
         const all_karyawan= await Karyawan.all()
         const karyawan = await Karyawan.query().preload('departemen').preload('user').where('user_id', user.id).first();
         if (!karyawan) {
@@ -80,7 +17,6 @@ export default class ManHoursController {
                 message: 'Karyawan tidak ditemukan',
             });
         }
-        
 
         if (karyawan.jabatan !== 'IT Software') {
             const manHours = await ManHour.query()
@@ -94,7 +30,6 @@ export default class ManHoursController {
             });
         } else {
             const allManHours = await ManHour.query().preload('karyawan').preload('proyek');
-        
             return inertia.render('admin/users/manhours/index', {
                 data_karyawan: karyawan,
                 data_manHours: allManHours,

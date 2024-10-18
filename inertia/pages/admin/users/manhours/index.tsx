@@ -1,6 +1,6 @@
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { IconBriefcase, IconHome, IconTrash } from '@tabler/icons-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '~/components/ui/button';
 import Admin from '~/layout/admin';
 import DataTable from '~/components/dataTable/dataTable';
@@ -11,7 +11,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~
 
 export default function Index() {
   const { data_manHours,user ,data_karyawan} = usePage().props;
-
+  const [startDate, setStartDate] = useState('');
+  console.log(startDate);
+  
+  const [endDate, setEndDate] = useState('');
+  const [filteredData, setFilteredData] = useState(data_manHours);
   const columnHelper = createColumnHelper<any>();
 
   const handleDelete = async (id) => {
@@ -31,12 +35,6 @@ export default function Index() {
       Swal.fire('Cancelled', 'Data tidak dihapus.', 'error');
     }
   };
-
-  const verifikasi = [
-    { value: 'Diterima', label: 'Diterima' },
-    { value: 'Ditolak', label: 'Ditolak' },
-    { value: 'Pending', label: 'Pending' },
-  ];
 
   const columns = [
     columnHelper.accessor('id', {
@@ -116,6 +114,29 @@ export default function Index() {
   ];
   
 
+  const handleFilter = (e) => {
+    e.preventDefault();
+    const params = {};
+
+    if (startDate) {
+      params.start_date = startDate;
+    }
+
+    if (endDate) {
+      params.end_date = endDate;
+    }
+
+    // if (departemen) {
+    //   params.departemen = departemen;
+    // }
+
+    // if (kodeJobOrder) {
+    //   params.kodeJobOrder = kodeJobOrder;
+    // }
+
+    router.get('/manhours', params);
+  };
+
   return (
     <Admin user={data_karyawan}>
       <Head title="Man Hours" />
@@ -145,28 +166,20 @@ export default function Index() {
         <div className="flex items-center mt-2 gap-2">
           <h6 className="text-gray-700 text-md font-semibold">Tanggal</h6>
           <div className="flex items-center mx-1 space-x-2">
-            <Input type="date" className="border rounded-sm p-0.5 text-sm" />
+            <Input 
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="border rounded-sm p-0.5 text-sm" />
             <span className="text-xs">sampai</span>
-            <Input type="date" className="border rounded-sm p-0.5 text-sm" />
+            <Input 
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="border rounded-sm p-0.5 text-sm" />
           </div>
 
-        
-          {/* {user?.jabatan === 'IT Software' && (
-            <div className="w-75">
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Pilih Departemen" />
-                </SelectTrigger>
-                <SelectContent>
-                  {data_karyawan.map((data, index) => (
-                    <SelectItem key={index} value={data.departemen.id}>
-                      {data.departemen.namaDepartemen}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )} */}
+
            <div className="w-75">
               <Select>
                 <SelectTrigger>
@@ -198,7 +211,7 @@ export default function Index() {
             </Select>
           </div>
 
-          <Button className="bg-blue-600 text-white hover:bg-blue-500 text-xs py-1.5 rounded-sm px-3">Pilih</Button>
+          <Button onClick={handleFilter} className="bg-blue-600 text-white hover:bg-blue-500 text-xs py-1.5 rounded-sm px-3">Pilih</Button>
         </div>
 
         <DataTable data={data_manHours} columns={columns} />
