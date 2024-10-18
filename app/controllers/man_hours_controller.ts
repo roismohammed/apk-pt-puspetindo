@@ -9,7 +9,7 @@ export default class ManHoursController {
         if (!user) {
             return inertia.render('admin/error/404')
         }
-        const all_karyawan= await Karyawan.all()
+        const all_karyawan = await Karyawan.all()
         const karyawan = await Karyawan.query().preload('departemen').preload('user').where('user_id', user.id).first();
         if (!karyawan) {
             return inertia.render('admin/users/manhours/index', {
@@ -23,21 +23,25 @@ export default class ManHoursController {
                 .preload('karyawan')
                 .preload('proyek')
                 .where('karyawan_id', karyawan.id);
-        
+
             return inertia.render('admin/users/manhours/index', {
                 data_karyawan: karyawan,
-                data_manHours: manHours,
+                data_manhours: manHours,
             });
         } else {
-            const allManHours = await ManHour.query().preload('karyawan').preload('proyek');
+            const allManHours = await ManHour.query()
+                .preload('karyawan', (Karyawan) => {
+                    Karyawan.preload('departemen');
+                })
+                .preload('proyek');
             return inertia.render('admin/users/manhours/index', {
                 data_karyawan: karyawan,
-                data_manHours: allManHours,
+                data_manhours: allManHours,
             });
         }
-        
+
     }
-    async create({ inertia,auth }: HttpContext) {
+    async create({ inertia, auth }: HttpContext) {
         const user = auth.user
         const karyawanuser = await Karyawan.query().preload('departemen').preload('user').where('user_id', user.id).first();
         const karyawan = await Karyawan.query()
@@ -45,7 +49,7 @@ export default class ManHoursController {
         return inertia.render('admin/users/manhours/create', {
             data_karyawan: karyawan,
             data_proyek: proyek,
-            data_user_login:karyawanuser
+            data_user_login: karyawanuser
         })
     }
     async store({ request, response, session }: HttpContext) {

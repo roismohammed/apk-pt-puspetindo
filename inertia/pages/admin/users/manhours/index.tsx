@@ -10,12 +10,14 @@ import { Input } from '~/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 
 export default function Index() {
-  const { data_manHours,user ,data_karyawan} = usePage().props;
+  const { data_manhours, user, data_karyawan } = usePage().props;
+  console.log(data_manhours);
+
   const [startDate, setStartDate] = useState('');
   console.log(setStartDate);
-  
+
   const [endDate, setEndDate] = useState('');
-  const [filteredData, setFilteredData] = useState(data_manHours);
+  const [filteredData, setFilteredData] = useState(data_manhours);
   const columnHelper = createColumnHelper<any>();
 
   const handleDelete = async (id) => {
@@ -41,7 +43,7 @@ export default function Index() {
       header: () => 'No',
       cell: (info) => info.row.index + 1,
     }),
-  
+
     columnHelper.accessor('proyek.namaProyek', {
       header: () => 'Nama Proyek (Kode Proyek)',
       cell: (info) => {
@@ -50,28 +52,28 @@ export default function Index() {
         return `${namaProyek} (${kodeProyek})`;
       },
     }),
-  
+
     columnHelper.accessor('nama', {
       header: () => 'Nama Karyawan',
       cell: (info) => info.row.original?.karyawan?.nama || 'data tidak ada',
     }),
-  
+
     columnHelper.accessor('karyawan.departemen.namaDepartemen', {
       header: 'Departemen',
-      cell: (info) => info.row.original?.departemen?.namaDepartemen || '-',
+      cell: (info) => info.row.original?.karyawan?.departemen?.namaDepartemen || '-',
       footer: (info) => info.column.id,
     }),
-  
+
     columnHelper.accessor('tanggal', {
       header: () => 'Tanggal',
       cell: (info) => new Date(info.getValue()).toLocaleDateString(),
     }),
-  
+
     columnHelper.accessor('jamKerja', {
       header: () => 'Jam Kerja',
       cell: (info) => `${info.getValue()} jam`,
     }),
-  
+
     columnHelper.accessor('jamLembur', {
       header: () => 'Jam Lembur',
       cell: (info) => {
@@ -79,7 +81,7 @@ export default function Index() {
         return jamLembur && jamLembur > 0 ? `${jamLembur} jam` : 'Tidak Ada kerja lembur';
       },
     }),
-  
+
     columnHelper.accessor('verifikasi', {
       header: () => 'Verifikasi',
       cell: (info) => {
@@ -96,10 +98,10 @@ export default function Index() {
           const statusClass = status === 'Diterima' ? 'text-green-600 bg-green-100 py-1 px-2 rounded' : 'text-red-600 bg-red-100 py-1 px-2 rounded';
           return <span className={statusClass}>{status}</span>;
         }
-        
+
       },
     }),
-  
+
     columnHelper.display({
       id: 'aksi',
       header: () => 'Aksi',
@@ -112,7 +114,7 @@ export default function Index() {
       ),
     }),
   ];
-  
+
 
   const handleFilter = (e) => {
     e.preventDefault();
@@ -166,30 +168,37 @@ export default function Index() {
         <div className="flex items-center mt-2 gap-2">
           <h6 className="text-gray-700 text-md font-semibold">Tanggal</h6>
           <div className="flex items-center mx-1 space-x-2">
-            <Input 
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="border rounded-sm p-0.5 text-sm" />
+            <Input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="border rounded-sm p-0.5 text-sm" />
             <span className="text-xs">sampai</span>
-            <Input 
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="border rounded-sm p-0.5 text-sm" />
+            <Input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="border rounded-sm p-0.5 text-sm" />
           </div>
 
 
-           <div className="w-75">
+          {data_karyawan.jabatan === 'IT Software' ? (
+            <div className="w-75">
               <Select>
                 <SelectTrigger>
                   <SelectValue placeholder="Pilih Departemen" />
                 </SelectTrigger>
                 <SelectContent>
+                  {data_manhours.map((item) => (
+                    <SelectItem key={item.id} value={item.departemen?.id}>
+                      {item.karyawan.departemen?.namaDepartemen}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
 
+          ) : null}
 
           <div className="w-75">
             <Select>
@@ -197,6 +206,11 @@ export default function Index() {
                 <SelectValue placeholder="Pilih Kode Proyek" />
               </SelectTrigger>
               <SelectContent>
+                {data_manhours.map((item) => (
+                  <SelectItem key={item.id} value={item.proyek.id}>
+                    {item.proyek.kodeJobOrder}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -204,7 +218,7 @@ export default function Index() {
           <Button onClick={handleFilter} className="bg-blue-600 text-white hover:bg-blue-500 text-xs py-1.5 rounded-sm px-3">Pilih</Button>
         </div>
 
-        <DataTable data={data_manHours} columns={columns} />
+        <DataTable data={data_manhours} columns={columns} />
       </div>
     </Admin>
   );
