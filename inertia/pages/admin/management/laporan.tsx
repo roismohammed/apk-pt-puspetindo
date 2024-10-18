@@ -26,6 +26,7 @@ export default function Laporan() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [filteredData, setFilteredData] = useState(data_manhours);
+  console.log(startDate);
   const [expandedRows, setExpandedRows] = useState([]);
   const tableRef = useRef(null);
   const [departemen, setDepartemen] = useState('');

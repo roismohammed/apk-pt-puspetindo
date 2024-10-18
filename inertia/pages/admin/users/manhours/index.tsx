@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~
 export default function Index() {
   const { data_manHours,user ,data_karyawan} = usePage().props;
   const [startDate, setStartDate] = useState('');
-  console.log(startDate);
+  console.log(setStartDate);
   
   const [endDate, setEndDate] = useState('');
   const [filteredData, setFilteredData] = useState(data_manHours);
@@ -186,11 +186,6 @@ export default function Index() {
                   <SelectValue placeholder="Pilih Departemen" />
                 </SelectTrigger>
                 <SelectContent>
-                  {/* {data_karyawan.map((data, index) => (
-                    <SelectItem key={index} value={data.departemen.id}>
-                      {data.departemen.namaDepartemen}
-                    </SelectItem>
-                  ))} */}
                 </SelectContent>
               </Select>
             </div>
@@ -202,11 +197,6 @@ export default function Index() {
                 <SelectValue placeholder="Pilih Kode Proyek" />
               </SelectTrigger>
               <SelectContent>
-              {/* {data_proyek.map((data, index) => (
-                <SelectItem key={index} value={data.kodeJobOrder}>
-               {data.kodeJobOrder}
-                </SelectItem>
-              ))} */}
               </SelectContent>
             </Select>
           </div>

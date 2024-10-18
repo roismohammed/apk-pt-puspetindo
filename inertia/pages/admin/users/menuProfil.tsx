@@ -2,14 +2,10 @@ import { Head, usePage } from '@inertiajs/react'
 import React from 'react'
 import { Card } from '~/components/ui/card'
 import Admin from '~/layout/admin'
-// import ImgMenuProfil from '../../../img/rois.jpeg'
 import { IconEdit } from '@tabler/icons-react'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 
 export default function MenuProfil() {
-  // const { data_karyawan } = usePage().props;
-  // console.log(data_karyawan);
-
   return (
     <Admin>
       <Head title='menu-profil' />
@@ -26,11 +22,7 @@ export default function MenuProfil() {
               </Avatar>
             </div>
             <div className='text-black sm:text-white  text-center sm:text-left flex flex-col items-center sm:items-start sm:mt-20 mt-0'>
-              {/* {data_karyawan.map((data) => (
-                <span className='flex gap-2 '>
-                  <h1>{data.nama}</h1>
-                </span>
-              ))} */}
+          
               <span className='flex gap-2 '>
                 <h1>Posisi:</h1>
                 <h1>IT Programmer</h1>

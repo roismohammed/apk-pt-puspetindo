@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~
 import Admin from '~/layout/admin';
 
 export default function Create({ onSuccess }: { onSuccess: () => void }) {
-  const { data_proyek, data_karyawan } = usePage().props;
+  const { data_proyek, data_karyawan,data_user_login } = usePage().props;
   console.log(data_proyek);
   { data_proyek }
   const { data, setData, post, processing } = useForm({
@@ -66,7 +66,7 @@ export default function Create({ onSuccess }: { onSuccess: () => void }) {
   };
 
   return (
-    <Admin>
+    <Admin user={data_user_login}>
       <Head>
         <title>create</title>
       </Head>

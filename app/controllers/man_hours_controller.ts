@@ -37,12 +37,15 @@ export default class ManHoursController {
         }
         
     }
-    async create({ inertia }: HttpContext) {
+    async create({ inertia,auth }: HttpContext) {
+        const user = auth.user
+        const karyawanuser = await Karyawan.query().preload('departemen').preload('user').where('user_id', user.id).first();
         const karyawan = await Karyawan.query()
-        const proyek = await Proyek.query()
+        const proyek = await Proyek.query().andWhere('status', '=', 'selesai');
         return inertia.render('admin/users/manhours/create', {
             data_karyawan: karyawan,
-            data_proyek: proyek
+            data_proyek: proyek,
+            data_user_login:karyawanuser
         })
     }
     async store({ request, response, session }: HttpContext) {

@@ -67,15 +67,15 @@ console.log(data_user_login);
       {/* Tombol Pilih Semua */}
       <div className="-mt-2">
         <label className="flex items-center space-x-2">
-          <Input
+          {/* <Input
             className="text-blue-600 hover:bg-gray-100 duration-300 border rounded-sm w-4 border-slate-200 hover:text-blue-800 cursor-pointer"
             type="checkbox"
           />
-          <span>Pilih Semua</span>
+          <span>Pilih Semua</span> */}
         </label>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7">
         {filteredPpwi.length > 0 ? (
           filteredPpwi.map((data: any) => (
             <Card
